@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/dan', function()
+Route::get('/', function()
 {
 	return View::make('hello');
 });
