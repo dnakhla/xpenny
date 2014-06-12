@@ -45,8 +45,17 @@ Route::filter('auth.basic', function() {
 });
 
 Route::filter('custom.api', function() {
-    Auth::loginUsingId(1);
-    //@TODO write custom login
+    if (Auth::guest()) {
+        $credentials = array(
+            'email' => Request::get('email'),
+            'password' => Request::get('password'),
+        );
+        if (!Auth::attempt($credentials, true)) {
+            return Response::json('Incorrect Login or no Login Passed', 403);
+        }
+    } else {
+        return Response::json('You\'re Not Logged In', 401);
+    }
 });
 
 /*
