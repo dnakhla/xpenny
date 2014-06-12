@@ -15,6 +15,28 @@ Route::get('/', function() {
     return View::make('hello');
 });
 
+Route::any('/api/login', function() {
+    if (Auth::guest()) {
+        if (Input::has(array(
+            'email',
+            'password'
+        ))) {
+            $credentials = array(
+                'email' => Request::get('email'),
+                'password' => Request::get('password'),
+            );
+            if (Auth::attempt($credentials, true)) {
+                return Response::json('Success!', 200);
+            } else {
+                return Response::json('Incorrect Login or no Login Passed', 403);
+            }
+        } else {
+            return Response::json('No Credentials Passed', 401);
+        }
+    } else {
+        return Response::json('You\'re Already Logged In!', 200);
+    }
+});
 Route::any('/api/logout', function() {
     if (Auth::logout()) {
         return Response::json(array('error' => false), 200);
