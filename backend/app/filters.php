@@ -29,6 +29,51 @@ App::after(function($request, $response) {
  | integrates HTTP Basic authentication for quick, simple checking.
  |
  */
+Route::filter('custom.loginCheck', function() {
+    if (!Auth::guest()) {
+        return Response::json(array(
+            'error' => false,
+            'message' => Auth::user()->name . ', you\'re already logged in!'
+        ), 200);
+    }
+    if (!Input::has(array(
+        'email',
+        'password'
+    ))) {
+        return Response::json(array(
+            'error' => true,
+            'message' => 'No Credentials Passed'
+        ), 401);
+    }
+
+});
+
+Route::filter('custom.signupCheck', function() {
+    if (!Input::has(array(
+        'name',
+        'email',
+        'password'
+    ))) {
+        return Response::json(array(
+            'error' => true,
+            'message' => 'Necessary fields (name, email, password) not passed'
+        ), 500);
+    }
+    $email = Request::get('email');
+    $usersExists = (bool)User::where('email', $email)->count();
+    if ($usersExists) {
+        return Response::json(array(
+            'error' => true,
+            'message' => 'email:' . $email . ' already being used'
+        ), 500);
+    }
+
+});
+Route::filter('custom.api', function() {
+    if (Auth::guest()) {
+        return Response::json('You\'re not logged in', 403);
+    }
+});
 
 Route::filter('auth', function() {
     if (Auth::guest()) {
@@ -42,12 +87,6 @@ Route::filter('auth', function() {
 
 Route::filter('auth.basic', function() {
     return Auth::basic();
-});
-
-Route::filter('custom.api', function() {
-    if (Auth::guest()) {
-        return Response::json('You\'re not logged in', 403);
-    }
 });
 
 /*

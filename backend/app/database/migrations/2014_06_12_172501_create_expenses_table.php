@@ -16,8 +16,8 @@ class CreateExpensesTable extends Migration {
             $table->integer('user_id')->unsigned();
             $table->decimal('amount', 10, 2);
             $table->dateTime('date');
-            $table->text('description');
-            $table->text('comment');
+            $table->text('description')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });
