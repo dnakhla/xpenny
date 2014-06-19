@@ -1,6 +1,4 @@
-<?php
-
-/*
+<?php /*
  |--------------------------------------------------------------------------
  | Application Routes
  |--------------------------------------------------------------------------
@@ -11,11 +9,11 @@
  |
  */
 
+//in real life this would need to be over HTTPS
 Route::any('/api/user/signup', array(
     'before' => 'custom.signupCheck',
     'uses' => 'UserController@signup'
 ));
-//in real life this would need to be over HTTPS
 Route::any('/api/user/login', array(
     'before' => 'custom.loginCheck',
     'uses' => 'UserController@login'

@@ -32,7 +32,7 @@ App::after(function($request, $response) {
 Route::filter('custom.loginCheck', function() {
     if (!Auth::guest()) {
         return Response::json(array(
-            'error' => false,
+            'error' => true,
             'message' => Auth::user()->name . ', you\'re already logged in!'
         ), 200);
     }
