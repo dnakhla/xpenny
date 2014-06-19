@@ -11,22 +11,29 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-        <!-- Include the compiled Ratchet CSS -->
-        <link href="css/ratchet.min.css" rel="stylesheet">
-        <link href="css/ratchet-theme-ios.min.css" rel="stylesheet">
-        <link href="css/main.css" rel="stylesheet">
-        <script src="js/ratchet.min.js"></script>
+        <script src="js/"></script>
     </head>
     <body>
+        <a href='#'>Logout</a>
+        <a href='#'>ADD</a>
 
-        <!-- Make sure all your bars are the first things in your <body> -->
-        <header class="bar bar-nav">
-            <h1 class="title">NAME</h1>
-        </header>
+        <div class="addexpense">
+            <div class="content-padded middle">
+                <form>
+                    <input type="number" placeholder="0.00">
+                    <input type="text" placeholder="Description">
+                    <input type="text" placeholder="comment">
+                    <input type="datetime-local" />
+                    <button class=" btn-positive btn-block">
+                        Add
+                    </button>
+                </form>
+            </div>
+        </div>
 
         <div class="signup">
             <div class="content-padded middle">
-                <h1 >Signup</h1>
+                <h1>Signup</h1>
                 <p>
                     <a href='#'>I already have an account!</a>
                 </p>
@@ -40,14 +47,14 @@
                     <input type="text" placeholder="First and Last Name">
                     <input type="email" placeholder="Email">
                     <input type="password" placeholder="Password">
-                    <button class="btn btn-positive btn-block">
+                    <button class=" btn-positive btn-block">
                         Sign Me Up
                     </button>
                 </form>
             </div>
         </div>
 
-        <div class="login">
+        <div class="login ">
             <div class="content-padded middle">
                 <h1>Login</h1>
                 <p>
@@ -63,7 +70,7 @@
             </div>
         </div>
 
-        <div class="home content">
+        <div class="home">
             <div class="content-padded">
                 <!-- <input type="search" placeholder="Search"> -->
                 <p class='nowshowings'>
@@ -81,24 +88,76 @@
                 </p>
                 <ul class="table-view">
                     <li class="table-view-cell media">
-                        <a class="navigate-right">
                         <div class="media-body">
-                            <p class='entry'>
-                                <span class='date'> June 21, 2013 @ 12:00pm </span>
-                                <span class='amount'>$65.00</span>
-                                <span class='description'>Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business. </span>
-                            </p>
-
-                        </div> </a>
+                            <span class='entry'>
+                                <p class='date'>
+                                    June 21, 2013 @ 12:00pm
+                                </p>
+                                <p class='amount'>
+                                    $65.00
+                                </p>
+                                <p class='description'>
+                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
+                                </p>
+                                <p class='comment'>
+                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
+                                </p> </span>
+                        </div>
+                    </li>
+                    <li class="table-view-cell media">
+                        <div class="media-body">
+                            <span class='entry'>
+                                <p class='date'>
+                                    June 21, 2013 @ 12:00pm
+                                </p>
+                                <p class='amount'>
+                                    $65.00
+                                </p>
+                                <p class='description'>
+                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
+                                </p>
+                                <p class='comment'>
+                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
+                                </p> </span>
+                        </div>
+                    </li>
+                    <li class="table-view-cell media">
+                        <div class="media-body">
+                            <span class='entry'>
+                                <p class='date'>
+                                    June 21, 2013 @ 12:00pm
+                                </p>
+                                <p class='amount'>
+                                    $65.00
+                                </p>
+                                <p class='description'>
+                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
+                                </p>
+                                <p class='comment'>
+                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
+                                </p> </span>
+                        </div>
+                    </li>
+                    <li class="table-view-cell media">
+                        <div class="media-body">
+                            <span class='entry'>
+                                <p class='date'>
+                                    June 21, 2013 @ 12:00pm
+                                </p>
+                                <p class='amount'>
+                                    $65.00
+                                </p>
+                                <p class='description'>
+                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
+                                </p>
+                                <p class='comment'>
+                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
+                                </p> </span>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <nav class="bar bar-tab">
-            <a class="tab-item " href="#"> <span class="icon icon-compose"></span> <span class="tab-label">Add</span> </a>
-            <a class="tab-item active" href="#"> <span class="icon icon-home"></span> <span class="tab-label">Home</span> </a>
-            <a class="tab-item" href="#"> <span class="icon icon-gear"></span> <span class="tab-label">Charts (coming soon)</span> </a>
-        </nav>
     </body>
 </html>
