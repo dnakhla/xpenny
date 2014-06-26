@@ -70,6 +70,7 @@ Route::filter('custom.signupCheck', function() {
 
 });
 Route::filter('custom.api', function() {
+    return Auth::basic();
     if (Auth::guest()) {
         return Response::json(array(
             'error' => true,

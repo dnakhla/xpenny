@@ -12,6 +12,10 @@ h2 {
 p {
     font-size: .8rem;
 }
+p.aboutapp {
+    font-size: .7rem;
+    color: #aaa;
+}
 .signup form,
 .login form {
     margin-top: 15px;
@@ -75,4 +79,7 @@ input[type=search] {
 }
 .little {
     font-size: .7rem;
+}
+.hide {
+    display: none;
 }

@@ -12,87 +12,41 @@
     <meta name='apple-mobile-web-app-status-bar-style' content='black' />
     <link rel='stylesheet' href='css/normalize.css'>
     <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.3/css/foundation.min.css' type='text/css' />
+    <!--    @TODO figure out if i want this and the css above-->
     <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet' type='text/css'>
     <link rel='stylesheet' href='css/fontello.css'>
     <link rel='stylesheet' href='css/animation.css'>
     <link rel='stylesheet' href='css/main.min.css' type='text/css' />
-    <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js'></script>
-    <script src='//code.angularjs.org/1.2.18/angular-route.min.js'>
-    </script>
-    <script src='//code.angularjs.org/1.2.18/angular-resource.min.js'></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.5/angular-touch.min.js'></script>
+    <!--    <script src='//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js'></script>-->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
     <script src='js/app.min.js'></script>
 </head>
 
-<body>
+<body ng-app='xpenny'>
     <!--[if lt IE 8]>
             <p class='browsehappy'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <div id='container' ng-app='xpenny'>
-        <div class='row'>
+    <div id='container' ng-controller="ExpenseCtrl">
+        <div class='row collapse'>
             <div class='small-6 columns'>
                 <h1><i class='icon-moneybag'></i>xpenny</h1>
             </div>
 
-            <div class='small-6 columns end'>
-                <a href='#' class='button tiny right'><i class='icon-login'></i>Signup</a>  <a href='#' class='button tiny right'><i class='icon-logout'></i> Logout</a>
+            <div class='small-6 columns text-right'>
+                <a href='#' class='button tiny'><i class='icon-login'></i>Signup</a>
+                <a href='#' class='button tiny'><i class='icon-logout'></i>Logout</a>
+                <a href='#' class='button tiny'><i class='icon-logout'></i>Login</a>
             </div>
         </div>
 
-        <div class='row addexpensemainbutton' ng-hide='true'>
+        <div class='row addexpensemainbutton hide'>
             <div class='small-5 small-centered columns'>
-                <a href='#' class='button expand round'>
+                <a href='#' class='button expand round' data-reveal-id="addExpense">
                     <i class='icon-plus-circled'></i>Add Expense</a>
             </div>
         </div>
 
-        <div class='addexpense editexpense' ng-hide='true'>
-            <div class='row'>
-                <div class='small-11 columns'>
-                    <h2>Expense Details</h2>
-                </div>
-                <div class='small-1 columns'>
-                    <!--                i like to keep this tucked away, ill prob never use it-->
-                    <a class='' href='#'><i class='icon-trash'></i></a>
-                </div>
-            </div>
-
-            <form>
-                <div class='row'>
-                    <div class='small-2 columns prefixcontainer'>
-                        <span class='prefix'>$</span>
-                    </div>
-                    <div class='small-10 columns inputcontainer'>
-                        <input type='number' placeholder='0.00' />
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class='small-12 columns'>
-                        <input type='text' placeholder='Describe...' />
-                    </div>
-                </div>
-
-                <div class='row'>
-                    <div class='small-12 columns'>
-                        <input type='text' placeholder='Comment...' />
-                    </div>
-                </div>
-
-                <div class='row'>
-                    <div class='small-12 columns'>
-                        <input type='date' />
-                    </div>
-                </div>
-
-                <div class='row'>
-                    <div class='small-12 columns'>
-                        <button class='small-6 columns'>Save</button>
-                        <button class='small-6 columns'>Cancel</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class='signup' ng-hide='true'>
+        <div class='signup'>
             <div class='row'>
                 <div class='small-12 columns end'>
                     <p class='aboutapp'>This is a little, mobile-first expense tracker I built on Laravel, Angular and Foundation.</p>
@@ -100,40 +54,47 @@
             </div>
 
             <div class='row'>
-                <h1 class='small-12 columns'>Signup</h1>
+                <h1 class='small-12 columns'>Signup</h1> 
+            </div>{{error}}
+            <div class='row' ng-show="error.value">
+                <div class='small-12 columns'>
+                    <div data-alert class=" alert-box alert ">
+                        <a href="# " class="close" ng-click='resetError();'>&times;</a>
+                    </div>
+                </div>
             </div>
             <div class='row'>
                 <div class='small-12 columns'>
                     <a class='little' href='#'> I already have an account!</a>
                 </div>
             </div>
-            <form>
+            <form ng-submit="signupUser() ">
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <input type='text' placeholder='First and Last Name' />
+                        <input type='text' name='name' placeholder='First and Last Name' value="{{user.name}} " required />
                     </div>
                 </div>
 
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <input type='email' placeholder='Email Address ' />
+                        <input type='email' name='email' placeholder='Email Address' value="{{user.email}} " required />
                     </div>
                 </div>
 
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <input type='password' placeholder='Password' />
+                        <input name='password' type='password' placeholder='Password' value="{{user.password}} " required />
                     </div>
                 </div>
 
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <button class='small-12 columns'>Signup</button>
+                        <button type="submit " class='small-12 columns'>Signup</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class='login' ng-hide='true'>
+        <div class='login hide'>
             <div class='row'>
                 <div class='small-12 columns'>
                     <h1>Login</h1>
@@ -163,8 +124,53 @@
                 </div>
             </form>
         </div>
+        <div class='addexpense editexpense reveal-modal' id="addExpense " data-reveal>
+            <div class='row'>
+                <div class='small-11 columns'>
+                    <h2>Expense Details</h2>
+                </div>
+                <div class='small-1 columns'>
+                    <!--                i like to keep this tucked away, ill prob never use it-->
+                    <a class='' href='#'><i class='icon-trash'></i></a>
+                </div>
+            </div>
 
-        <div class='home' ng-show='loggedin'>
+            <form>
+                <div class='row'>
+                    <div class='small-2 columns prefixcontainer'>
+                        <span class='prefix'>$</span>
+                    </div>
+                    <div class='small-10 columns inputcontainer'>
+                        <input type='number' step="0.01 " placeholder='0.00' />
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='text' placeholder='Describe...' />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='text' placeholder='Comment...' />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='datetime-local' />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <button class='small-6 columns'>Save</button>
+                        <button class='small-6 columns'>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class='home hide'>
             <div class='row sorting'>
                 <div class='small-10 medium-3 columns '>
                     <p class=''>Sort:
@@ -218,6 +224,17 @@
             </div>
         </div>
     </div>
+
+    <!--    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>-->
+    <script src='//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.0/fastclick.min.js'></script>
+    <!--
+    <script src='//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.3/js/foundation/foundation.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.3/js/foundation/foundation.reveal.min.js'></script>
+-->
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.7.1/angular-moment.min.js "></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-cookies.min.js "></script>
+    <script src='//code.angularjs.org/1.2.18/angular-resource.min.js'></script>
 </body>
 
 </html>
