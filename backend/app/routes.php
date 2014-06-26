@@ -30,3 +30,11 @@ Route::group(array(
 ), function() {
     Route::resource('expense', 'ExpenseController');
 });
+
+App::missing(function($exception)
+	{
+        return Response::json(array(
+            'error' => true,
+            'message' => 'wrong url'
+        ), 404);
+	});

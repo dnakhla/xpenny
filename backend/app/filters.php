@@ -71,7 +71,10 @@ Route::filter('custom.signupCheck', function() {
 });
 Route::filter('custom.api', function() {
     if (Auth::guest()) {
-        return Response::json('You\'re not logged in', 403);
+        return Response::json(array(
+            'error' => true,
+            'message' => 'you\'r not logged in'
+        ), 401);
     }
 });
 

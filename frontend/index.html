@@ -1,163 +1,223 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>xpenny - demo minimal expense tracker</title>
 
-        <!-- Sets initial viewport load and disables zooming  -->
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+<head>
+    <meta charset='utf-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>xpenny - demo minimal expense tracker</title>
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui' />
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name='apple-mobile-web-app-capable' content='yes' />
+    <meta name='apple-mobile-web-app-status-bar-style' content='black' />
+    <link rel='stylesheet' href='css/normalize.css'>
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.3/css/foundation.min.css' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' href='css/fontello.css'>
+    <link rel='stylesheet' href='css/animation.css'>
+    <link rel='stylesheet' href='css/main.min.css' type='text/css' />
+    <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js'></script>
+    <script src='//code.angularjs.org/1.2.18/angular-route.min.js'>
+    </script>
+    <script src='//code.angularjs.org/1.2.18/angular-resource.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.5/angular-touch.min.js'></script>
+    <script src='js/app.min.js'></script>
+</head>
 
-        <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<body>
+    <!--[if lt IE 8]>
+            <p class='browsehappy'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div id='container' ng-app='xpenny'>
+        <div class='row'>
+            <div class='small-6 columns'>
+                <h1><i class='icon-moneybag'></i>xpenny</h1>
+            </div>
 
-        <script src="js/"></script>
-    </head>
-    <body>
-        <a href='#'>Logout</a>
-        <a href='#'>ADD</a>
-
-        <div class="addexpense">
-            <div class="content-padded middle">
-                <form>
-                    <input type="number" placeholder="0.00">
-                    <input type="text" placeholder="Description">
-                    <input type="text" placeholder="comment">
-                    <input type="datetime-local" />
-                    <button class=" btn-positive btn-block">
-                        Add
-                    </button>
-                </form>
+            <div class='small-6 columns end'>
+                <a href='#' class='button tiny right'><i class='icon-login'></i>Signup</a>  <a href='#' class='button tiny right'><i class='icon-logout'></i> Logout</a>
             </div>
         </div>
 
-        <div class="signup">
-            <div class="content-padded middle">
-                <h1>Signup</h1>
-                <p>
-                    <a href='#'>I already have an account!</a>
-                </p>
-                <p>
-                    This is a little, mobile-first expense tracker I built on Laravel, Angular and Ratchet. Signup
-                    to experiment with the application.
-                </p>
-            </div>
-            <div class="content-padded">
-                <form>
-                    <input type="text" placeholder="First and Last Name">
-                    <input type="email" placeholder="Email">
-                    <input type="password" placeholder="Password">
-                    <button class=" btn-positive btn-block">
-                        Sign Me Up
-                    </button>
-                </form>
+        <div class='row addexpensemainbutton' ng-hide='true'>
+            <div class='small-5 small-centered columns'>
+                <a href='#' class='button expand round'>
+                    <i class='icon-plus-circled'></i>Add Expense</a>
             </div>
         </div>
 
-        <div class="login ">
-            <div class="content-padded middle">
-                <h1>Login</h1>
-                <p>
-                    <a href='#'>I don't have an account yet!</a>
-                </p>
-                <form>
-                    <input type="email" placeholder="Email">
-                    <input type="password" placeholder="Password">
-                    <button class="btn btn-positive btn-block">
-                        Login
-                    </button>
-                </form>
+        <div class='addexpense editexpense' ng-hide='true'>
+            <div class='row'>
+                <div class='small-11 columns'>
+                    <h2>Expense Details</h2>
+                </div>
+                <div class='small-1 columns'>
+                    <!--                i like to keep this tucked away, ill prob never use it-->
+                    <a class='' href='#'><i class='icon-trash'></i></a>
+                </div>
             </div>
-        </div>
 
-        <div class="home">
-            <div class="content-padded">
-                <!-- <input type="search" placeholder="Search"> -->
-                <p class='nowshowings'>
-                    Sort By:
-                    <div class="segmented-control">
-                        <a class="control-item active">Date <span class='up'>&#10548;</span> <span class='down'>&#10549;</span></a>
-                        <a class="control-item">Amount <span class='up'>&#10548;</span> <span class='down'>&#10549;</span></a>
+            <form>
+                <div class='row'>
+                    <div class='small-2 columns prefixcontainer'>
+                        <span class='prefix'>$</span>
                     </div>
-                </p>
-                <p class='nowshowings'>
-                    Recent Expenses:
-                </p>
-                <p class='middle'>
-                    you haven't added anything yet
-                </p>
-                <ul class="table-view">
-                    <li class="table-view-cell media">
-                        <div class="media-body">
-                            <span class='entry'>
-                                <p class='date'>
-                                    June 21, 2013 @ 12:00pm
-                                </p>
-                                <p class='amount'>
-                                    $65.00
-                                </p>
-                                <p class='description'>
-                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
-                                </p>
-                                <p class='comment'>
-                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
-                                </p> </span>
+                    <div class='small-10 columns inputcontainer'>
+                        <input type='number' placeholder='0.00' />
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='text' placeholder='Describe...' />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='text' placeholder='Comment...' />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='date' />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <button class='small-6 columns'>Save</button>
+                        <button class='small-6 columns'>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class='signup' ng-hide='true'>
+            <div class='row'>
+                <div class='small-12 columns end'>
+                    <p class='aboutapp'>This is a little, mobile-first expense tracker I built on Laravel, Angular and Foundation.</p>
+                </div>
+            </div>
+
+            <div class='row'>
+                <h1 class='small-12 columns'>Signup</h1>
+            </div>
+            <div class='row'>
+                <div class='small-12 columns'>
+                    <a class='little' href='#'> I already have an account!</a>
+                </div>
+            </div>
+            <form>
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='text' placeholder='First and Last Name' />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='email' placeholder='Email Address ' />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='password' placeholder='Password' />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <button class='small-12 columns'>Signup</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class='login' ng-hide='true'>
+            <div class='row'>
+                <div class='small-12 columns'>
+                    <h1>Login</h1>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='small-12 columns'>
+                    <a class='little' href='#'>I don't have an account yet!</a>
+                </div>
+            </div>
+            <form>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='email' placeholder='Email' />
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input type='password' placeholder='Password' />
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <a class='button small-12 columns'>Login</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class='home' ng-show='loggedin'>
+            <div class='row sorting'>
+                <div class='small-10 medium-3 columns '>
+                    <p class=''>Sort:
+                        <a class='active' href='#'>
+                            <i class='icon-sort-alt-up'></i>
+                            <i class='icon-sort-alt-down'></i>
+                            Date
+                        </a>
+
+                        <a class='' href='#'>
+                    Amount
+                </a>
+                    </p>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='small-12 columns'>
+                    <p class=''>Recent Expenses:</p>
+                </div>
+            </div>
+            <div class='row'>
+                <p class='small-4 small-centered columns text-center'>you haven't added anything yet!</p>
+            </div>
+
+            <div class='row'>
+                <ul class='small-12 small-centered columns'>
+                    <li class='expense clearfix'>
+                        <div class='clearfix'>
+                            <p class='expense menu edit right'>
+                                <a href='#'>
+                                    <i class='icon-edit'></i>
+                                </a>
+                            </p>
                         </div>
-                    </li>
-                    <li class="table-view-cell media">
-                        <div class="media-body">
-                            <span class='entry'>
-                                <p class='date'>
-                                    June 21, 2013 @ 12:00pm
-                                </p>
-                                <p class='amount'>
-                                    $65.00
-                                </p>
-                                <p class='description'>
-                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
-                                </p>
-                                <p class='comment'>
-                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
-                                </p> </span>
+                        <div class='row'>
+                            <p class='date small-12 columns'>June 21, 2013
+                            </p>
                         </div>
-                    </li>
-                    <li class="table-view-cell media">
-                        <div class="media-body">
-                            <span class='entry'>
-                                <p class='date'>
-                                    June 21, 2013 @ 12:00pm
-                                </p>
-                                <p class='amount'>
-                                    $65.00
-                                </p>
-                                <p class='description'>
-                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
-                                </p>
-                                <p class='comment'>
-                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
-                                </p> </span>
+
+                        <div class='row'>
+                            <p class='amount small-4 columns'>$100,000</p>
+                            <p class='description small-6 end columns'>I bought a house.I bought a house.I bought a house.
+                            </p>
                         </div>
-                    </li>
-                    <li class="table-view-cell media">
-                        <div class="media-body">
-                            <span class='entry'>
-                                <p class='date'>
-                                    June 21, 2013 @ 12:00pm
-                                </p>
-                                <p class='amount'>
-                                    $65.00
-                                </p>
-                                <p class='description'>
-                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
-                                </p>
-                                <p class='comment'>
-                                    Definition of expense: Money spent or cost incurred in an organization's efforts to generate revenue, representing the cost of doing business.
-                                </p> </span>
+                        <div class='row'>
+                            <p class='comment small-12 columns'>comment</p>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
+    </div>
+</body>
 
-    </body>
 </html>
