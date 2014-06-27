@@ -1,9 +1,10 @@
 h1,
 h2 {
     font-family: 'Love Ya Like A Sister', serif;
-    margin: 0px;
+    margin: 0;
 }
-h1 {
+.headertitle {
+    font-family: 'Love Ya Like A Sister', serif;
     font-size: 2rem;
 }
 h2 {
@@ -21,15 +22,15 @@ p.aboutapp {
     margin-top: 15px;
 }
 p.aboutapp {
-    padding: 15px 0px;
-    font-size: .8rem;
+    padding: 15px 0;
+    font-size: .9rem;
 }
-div.sorting p {
+sorting p {
     font-size: .9rem;
     vertical-align: middle;
 }
-div.sorting a {
-    margin-left: 10px;
+sorting a {
+    margin-left: 10;
 }
 .expense {
     list-style-type: none;
@@ -37,20 +38,20 @@ div.sorting a {
 li.expense {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    padding: 0px 0px
+    padding: 0 0
 }
 li.expense p {
-    margin: 0px;
+    margin: 0;
 }
-div.prefixcontainer {
+prefixcontainer {
     padding-right: 0;
 }
-div.inputcontainer {
+inputcontainer {
     padding-left: 0;
 }
 li.expense .menu.edit,
 li.expense .menu.delete {
-    height: 0px;
+    height: 0;
 }
 .sort {
     font-size: .8rem;
@@ -82,4 +83,36 @@ input[type=search] {
 }
 .hide {
     display: none;
+}
+.loading {
+    position: absolute;
+    width: 100%;
+}
+[class^="icon-spin"]:before {
+    font-size: 12rem;
+}
+.loading .headertitle {
+    font-size: 2.2rem;
+    position: relative;
+    color: #006400;
+    top: 8.9rem;
+    left: .2rem;
+}
+.headertitle .icon-dollar:before {
+    color: #006400;
+    opacity: 0.8;
+    -webkit-animation: rightMove 1s ease-in;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay: 2s;
+}
+@-webkit-keyframes rightMove {
+    0% {
+        margin-right: 0;
+    }
+    50% {
+        margin-right: -20px;
+    }
+    100% {
+        margin-right: -20px;
+    }
 }

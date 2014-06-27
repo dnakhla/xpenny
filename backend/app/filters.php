@@ -30,12 +30,12 @@ App::after(function($request, $response) {
  |
  */
 Route::filter('custom.loginCheck', function() {
-    if (!Auth::guest()) {
-        return Response::json(array(
-            'error' => true,
-            'message' => Auth::user()->name . ', you\'re already logged in!'
-        ), 200);
-    }
+//    if (!Auth::guest()) {
+//        return Response::json(array(
+//            'error' => false,
+//            'message' => Auth::user()->name . ', you\'re already logged in!'
+//        ), 200);
+//    }
     if (!Input::has(array(
         'email',
         'password'
@@ -64,7 +64,7 @@ Route::filter('custom.signupCheck', function() {
     if ($usersExists) {
         return Response::json(array(
             'error' => true,
-            'message' => 'email:' . $email . ' already being used'
+            'message' => 'The email ' . $email . ' already being used'
         ), 500);
     }
 

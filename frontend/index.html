@@ -26,16 +26,23 @@
     <!--[if lt IE 8]>
             <p class='browsehappy'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <div id='container' ng-controller="ExpenseCtrl">
+
+    <div class='loading' ng-show='loading'>
+        <div class='small-10 columns small-centered end text-center'>
+            <p class='headertitle'>xpenny</p>
+            <i class='icon-spin2 animate-spin'></i>
+        </div>
+    </div>
+    <div id='container' ng-switch="activecard" ng-hide='loading' ng-controller="ExpenseCtrl" ng-cloak>
         <div class='row collapse'>
             <div class='small-6 columns'>
-                <h1><i class='icon-moneybag'></i>xpenny</h1>
+                <h1 class='headertitle'><i class='icon-dollar'></i>xpenny</h1>
             </div>
 
-            <div class='small-6 columns text-right'>
-                <a href='#' class='button tiny'><i class='icon-login'></i>Signup</a>
-                <a href='#' class='button tiny'><i class='icon-logout'></i>Logout</a>
-                <a href='#' class='button tiny'><i class='icon-logout'></i>Login</a>
+            <div class='small-6 columns text-right' ng-switch="user.loggedin">
+                <a href='#' ng-click="activatecard('signup')" ng-switch-when="false" class='button tiny'><i class='icon-login'></i>Signup</a>
+                <a href='#' ng-switch-when="true" ng-click="logoutUser()" class='button tiny'><i class='icon-logout'></i>Logout</a>
+                <a href='#' ng-click="activatecard('login')" ng-switch-when="false" class='button tiny'><i class='icon-logout'></i>Login</a>
             </div>
         </div>
 
@@ -46,10 +53,10 @@
             </div>
         </div>
 
-        <div class='signup'>
+        <div ng-switch-when="signup" class='signup'>
             <div class='row'>
-                <div class='small-12 columns end'>
-                    <p class='aboutapp'>This is a little, mobile-first expense tracker I built on Laravel, Angular and Foundation.</p>
+                <div class='small-11 columns panel callout small-centered'>
+                    <p class='aboutapp'>This is a little, mobile-first expense tracker I built on Laravel (PHP), Angular (JS), and Foundation (CSS).</p>
                 </div>
             </div>
 
@@ -59,42 +66,43 @@
             <div class='row' ng-show="error.value">
                 <div class='small-12 columns'>
                     <div data-alert class=" alert-box alert ">
+                        {{error.message}}
                         <a href="# " class="close" ng-click='resetError();'>&times;</a>
                     </div>
                 </div>
             </div>
             <div class='row'>
                 <div class='small-12 columns'>
-                    <a class='little' href='#'> I already have an account!</a>
+                    <a class='little' href='#' ng-click="activatecard('login')"> I already have an account!</a>
                 </div>
             </div>
-            <form ng-submit="signupUser() ">
+            <form ng-submit="signupUser()">
                 <div class='row'>
-                    <div class='small-12 columns'>
-                        <input type='text' name='name' placeholder='First and Last Name' value="{{user.name}} " required />
+                    <div class='small-12 columns'>{{user}}
+                        <input type='text' name='name' placeholder='First and Last Name' ng-model=user.name required />
                     </div>
                 </div>
 
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <input type='email' name='email' placeholder='Email Address' value="{{user.email}} " required />
+                        <input type='email' name='email' placeholder='Email Address' ng-model=user.email required />
                     </div>
                 </div>
 
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <input name='password' type='password' placeholder='Password' value="{{user.password}} " required />
+                        <input name='password' type='password' placeholder='Password' ng-model=user.password required />
                     </div>
                 </div>
 
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <button type="submit " class='small-12 columns'>Signup</button>
+                        <button type="submit" class='small-12 columns'>Signup</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class='login hide'>
+        <div ng-switch-when='login' class='login'>
             <div class='row'>
                 <div class='small-12 columns'>
                     <h1>Login</h1>
@@ -102,24 +110,25 @@
             </div>
             <div class='row'>
                 <div class='small-12 columns'>
-                    <a class='little' href='#'>I don't have an account yet!</a>
+                    <a class='little' href='#' ng-click="activatecard('signup')">I don't have an account yet!</a>
                 </div>
             </div>
-            <form>
+            <form ng-submit="loginUser()">
 
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <input type='email' placeholder='Email' />
+                        <input type='email' name='email' placeholder='Email Address' ng-model=user.email required />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='small-12 columns'>
+                        <input name='password' type='password' placeholder='Password' ng-model=user.password required />
                     </div>
                 </div>
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <input type='password' placeholder='Password' />
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class='small-12 columns'>
-                        <a class='button small-12 columns'>Login</a>
+                        <button type="submit" class='button small-12 columns'>Login</button>
                     </div>
                 </div>
             </form>
@@ -170,7 +179,7 @@
                 </div>
             </form>
         </div>
-        <div class='home hide'>
+        <div ng-switch-when="home" class='home'>
             <div class='row sorting'>
                 <div class='small-10 medium-3 columns '>
                     <p class=''>Sort:
