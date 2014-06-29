@@ -166,7 +166,7 @@
                     </div>
                     <div class='small-2 end columns'>
                         <p class='totalSpent'>
-                           
+
                         </p>
                     </div>
 
@@ -200,7 +200,7 @@
                         </div>
 
                         <div class='row'>
-                            <p class='amount small-4 columns'>
+                            <p class='amount small-4 columns' ng-class="(entry.amount.length > 5) ? 'smallNumber' : ''">
                                 {{entry.amount | currency }}
                             </p>
                             <p class='description small-6 end columns'>

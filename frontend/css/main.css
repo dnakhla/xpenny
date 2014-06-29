@@ -1,6 +1,4 @@
-body{
-}
-h1,
+body {} h1,
 h2 {
     font-family: 'Love Ya Like A Sister', serif;
     margin: 0;
@@ -13,7 +11,7 @@ h2 {
     font-size: 1.5rem;
 }
 #container {
-   margin-top:8rem;
+    margin-top: 8rem;
 }
 p {
     font-size: .8rem;
@@ -26,12 +24,9 @@ p.aboutapp {
 .login form {
     margin-top: 15px;
 }
-.home{
- 
-}
-.addexpense {
-    position:relative;
-    top:-3rem;
+.home {} .addexpense {
+    position: relative;
+    top: -3rem;
 }
 .addexpensemainbutton {
     padding: 0;
@@ -40,11 +35,11 @@ p.aboutapp {
     position: fixed;
 }
 .fixed {
-        position: fixed;
+    position: fixed;
 }
 .headbar {
     background: #fff;
-    top:0px;
+    top: 0px;
 }
 p.aboutapp {
     padding: 15px 0;
@@ -52,9 +47,8 @@ p.aboutapp {
 }
 .sorting input {
     font-size: .7rem;
-    margin-left:3px;
+    margin-left: 3px;
 }
-
 .sorting p {
     font-size: .7rem;
     vertical-align: middle;
@@ -69,12 +63,12 @@ p.aboutapp {
     margin-left: 10;
 }
 ul.list {
-   height:50%;
+    height: 50%;
     overflow: scroll !important;
 }
 .expense {
     list-style-type: none;
-    height:auto;
+    height: auto;
 }
 li.expense {
     border-top: 1px solid #ddd;
@@ -99,7 +93,7 @@ li.expense .menu.delete {
 }
 .sorting {
     background: #fff;
-    top:3.5rem;
+    top: 3.5rem;
     padding-left: 1.9rem;
     font-size: .8rem;
     border-bottom: 2px solid #fff;
@@ -141,9 +135,9 @@ li.expense p.comment {
     margin-top: -.5rem;
 }
 .icon-edit {
-    font-size:2rem;
+    font-size: 2rem;
     position: relative;
-    top:.5rem;
+    top: .5rem;
 }
 input[type=search] {
     text-align: left;
@@ -159,7 +153,7 @@ input[type=search] {
     width: 100%;
 }
 .filter i {
-    font-size:1.5rem;
+    font-size: 1.5rem;
 }
 [class^="icon-spin"]:before {
     font-size: 12rem;
@@ -191,6 +185,9 @@ p.mt10 {
 p.tagline {
     font-size: .5rem;
     color: #A4846A;
+}
+p.smallNumber {
+    font-size: 1rem;
 }
 @-webkit-keyframes rightMove {
     0% {
