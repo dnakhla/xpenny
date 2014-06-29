@@ -138,7 +138,7 @@
             </form>
         </div>
         <div ng-switch-when='home' class='home'>
-            <div class='row sorting fixed' ng-class="(expensesSorting.reverse === true) ? ' rev' : ''" ng-hide=showAddExpense>
+            <div class='row sorting fixed' ng-class="(expensesSorting.reverse === true) ? ' rev' : ''" ng-hide=(showAddExpense || expenses.length < 1)>
                 <div class='row'>
                     <p class='small-4 columns mb5'>
                         Sort:
