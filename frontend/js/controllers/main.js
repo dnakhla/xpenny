@@ -20,7 +20,6 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
             description: '',
             comment: '',
             date: new Date()
-
         };
     };
     $scope.getTotal = function () {
@@ -29,11 +28,14 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
     $scope.user = User.getUser();
     $scope.renewActiveExpense();
     $scope.updateExpenses = function () {
+        $scope.loading = true;
         Expense.get().success(function (data) {
             $scope.expenses = data.expenses;
             //            $scope.getTotal();
         }).error(function (data) {
             console.log('er', data);
+        }).finally(function () {
+            $scope.loading = false;
         });
     };
     if ($scope.user.access !== false) {
@@ -76,6 +78,7 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
     }
     $scope.saveExpense = function () {
         $scope.error.value = false;
+        $scope.loading = true;
         Expense.save($scope.activeExpense)
             .success(function (data) {
                 $scope.hideAddExpense();
@@ -96,6 +99,7 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
             });
     };
     $scope.deleteExpense = function () {
+        $scope.loading = true;
         Expense.destroy($scope.activeExpense)
             .success(function (data) {
                 $scope.hideAddExpense();
@@ -117,6 +121,7 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
     };
     $scope.loginUser = function () {
         $scope.error.value = false;
+        $scope.loading = true;
         User.login($scope.user)
             .success(function (data) {
                 console.log(data);
@@ -132,7 +137,9 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
                     value: data.error,
                     message: data.message
                 };
-            }).finally(function () {});
+            }).finally(function () {
+                $scope.loading = false;
+            });
     };
     $scope.signupUser = function () {
         $scope.loading = true;
@@ -166,8 +173,7 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
         User.logout();
     };
     $scope.submitExpense = function () {
-        // save the expense. pass in expense data from the form
-        // use the function we created in our service
+        $scope.loading = true;
         Expense.save($scope.expenseData)
             .success(function (data) {
                 // if successful, we'll need to refresh the expense list
@@ -179,6 +185,8 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
             })
             .error(function (data) {
                 console.log('er', data);
+            }).finally(function () {
+                $scope.loading = false;
             });
     };
 };
