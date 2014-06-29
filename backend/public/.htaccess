@@ -1,3 +1,4 @@
+SetEnv APPLICATION_ENV "local"
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews
