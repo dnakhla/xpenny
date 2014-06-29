@@ -26,12 +26,11 @@
                 date: new Date()
 
             };
-        }
+        };
         $scope.renewActiveExpense();
         $scope.totalCalc = function () {
-            $scope.totalAmount = $filter('filter')($scope.expenses, $scope.filterText);
+            console.log($scope.filteredItems);
         };
-        $scope.totalCalc();
         $scope.updateExpenses = function () {
             Expense.get().success(function (data) {
                 $scope.expenses = data.expenses;

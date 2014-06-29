@@ -136,12 +136,10 @@
                     <p class='small-2 columns mb5'>
                         Sort
                     </p>
-                    <p class='small-8 columns mb5'>
+                    <p class='small-8 end columns mb5'>
                         Filter
                     </p>
-                    <p class='small-2 columns mb5'>
-                        Total
-                    </p>
+
                 </div>
                 <div class='row'>
                     <div class='small-1 columns' ng-class="(expensesSorting.sort === 'date') ? ' active' : ''">
@@ -153,12 +151,10 @@
                             <i class='icon-s'></i>
                         </a>
                     </div>
-                    <div class='small-8  columns'>
+                    <div class='small-8  end columns'>
                         <input ng-change=totalCalc() class='filterinput' type='text' ng-model="filterText" placeholder='type to filter by any field'>
                     </div>
-                    <div class='small-1 columns end'>
-                        <p class='text-left'>{{totalAmount()}} $10,000</p>
-                    </div>
+
                 </div>
             </div>
             <div class='row'>
