@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     var xPenny = angular.module('xpenny', ['ngCookies']);
-    var expenseController = function ($scope, $cookieStore, $http, Expense, User) {
+    var expenseController = function ($scope, $cookieStore, $http, $filter, Expense, User) {
         $scope.loading = false;
         $scope.user = User.getUser();
         $scope.error = {
@@ -14,10 +14,10 @@
         };
         $scope.showAddExpense = false;
         $scope.expenses = false;
-
-
-
-
+        $scope.expensesSorting = {
+            sort: 'date',
+            reverse: true
+        };
         $scope.renewActiveExpense = function () {
             $scope.activeExpense = {
                 amount: null,
@@ -28,6 +28,10 @@
             };
         }
         $scope.renewActiveExpense();
+        $scope.totalCalc = function () {
+            $scope.totalAmount = $filter('filter')($scope.expenses, $scope.filterText);
+        };
+        $scope.totalCalc();
         $scope.updateExpenses = function () {
             Expense.get().success(function (data) {
                 $scope.expenses = data.expenses;
@@ -82,6 +86,26 @@
                     $scope.success = {
                         value: true,
                         message: 'Expenses Updated!'
+                    };
+                    $scope.updateExpenses();
+                })
+                .error(function (data) {
+                    $scope.error = {
+                        value: data.error,
+                        message: data.message
+                    };
+                }).finally(function () {
+                    $scope.loading = false;
+                });
+        };
+        $scope.deleteExpense = function () {
+            Expense.destroy($scope.activeExpense)
+                .success(function (data) {
+                    $scope.hideAddExpense();
+                    $scope.renewActiveExpense();
+                    $scope.success = {
+                        value: true,
+                        message: 'Expenses Deleted!'
                     };
                     $scope.updateExpenses();
                 })
@@ -222,9 +246,8 @@
                     params: expenseData
                 });
             },
-            // destroy a expense
-            destroy: function (id) {
-                return $http.delete('backend/api/expense/' + id);
+            destroy: function (expenseData) {
+                return $http.delete('/backend/public/api/expense/' + expenseData.id);
             }
         };
     };
@@ -233,6 +256,7 @@
     xPenny.factory('User', userModel);
     xPenny.filter('timeago', function () {
         return function (date) {
+            var date = new Date(date + ' UTC');
             return moment(date).fromNow();
         };
     });
