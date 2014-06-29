@@ -138,7 +138,7 @@
             </form>
         </div>
         <div ng-switch-when='home' class='home'>
-            <div class='row sorting fixed' ng-class="(expensesSorting.reverse === true) ? ' rev' : ''" ng-show=!showAddExpense>
+            <div class='row sorting fixed' ng-class="(expensesSorting.reverse === true) ? ' rev' : ''" ng-hide=showAddExpense>
                 <div class='row'>
                     <p class='small-4 columns mb5'>
                         Sort:
@@ -153,16 +153,16 @@
                         -->
                 </div>
                 <div class='row'>
-                    <div class='small-2 columns' ng-class="(expensesSorting.sort === 'date') ? ' active' : ''">
-                        <a class='filter ' href='#' ng-click="expensesSorting.sort = 'date'; expensesSorting.reverse=!expensesSorting.reverse"> <i class='icon-calendar'></i> 
+                    <div class='small-2 columns text-center' ng-class="(expensesSorting.sort === 'date') ? ' active' : ''">
+                        <a class='filter' href='#' ng-click="expensesSorting.sort = 'date'; expensesSorting.reverse=!expensesSorting.reverse"> <i class='icon-calendar'></i> 
                         </a>
                     </div>
-                    <div class='small-2 columns' ng-class="(expensesSorting.sort === 'amount') ? ' active' : ''">
+                    <div class='small-2 columns text-center' ng-class="(expensesSorting.sort === 'amount') ? ' active' : ''">
                         <a class='filter' href='#' ng-click="expensesSorting.sort = 'amount'; expensesSorting.reverse=!expensesSorting.reverse"> <i class='icon-s'></i> 
                         </a>
                     </div>
                     <div class='small-6 columns filtercontainer'>
-                        <input class='filterinput' ng-change=getTotal(filteredExpenses) class='filterinput' type='text' ng-model="filterText" placeholder='type to filter by amount, comment, or description' />
+                        <input class='filterinput' ng-change=getTotal(filteredExpenses) class='filterinput' type='text' ng-model="filterText" placeholder='type to filter' />
                     </div>
                     <div class='small-2 end columns'>
                         <p class='totalSpent'>
@@ -231,7 +231,7 @@
                             <span class='prefix'>$</span>
                         </div>
                         <div class='small-10 columns inputcontainer'>
-                            <input type='number' pattern="\d*" ng-model='activeExpense.amount' step='0.01' placeholder='0.00' required/>
+                            <input type='number' pattern="\d*" ng-model='activeExpense.amount' placeholder='0.00' step="any" min="0.01" required/>
                         </div>
                     </div>
                     <div class='row'>
@@ -256,9 +256,9 @@
                             <button class='small-6 columns' type='submit'>
                                 Save
                             </button>
-                            <button class='small-6 columns' ng-click=hideAddExpense()>
+                            <a class='small-6 button columns' ng-click='hideAddExpense()'>
                                 Cancel
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </form>
