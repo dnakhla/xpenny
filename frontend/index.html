@@ -34,7 +34,7 @@
         </div>
     </div>
     <div id='container' ng-switch='activecard' ng-hide='loading' ng-controller='ExpenseCtrl' ng-cloak>
-        <div class='row'>
+        <div class='row headbar fixed'>
             <div class='small-4 columns'>
                 <h1 class='headertitle'><i class='icon-dollar'></i>xpenny</h1>
                 <p class='tagline'>
@@ -47,7 +47,7 @@
                 <a href='#' ng-click='activatecard("login")' ng-hide=user.access class='button tiny'><i class='icon-logout'></i>Login</a>
             </div>
         </div>
-        <div class='row'>
+        <div class='row fixed'>
             <div class='small-12 columns'>
                 <div data-alert class=' alert-box alert ' ng-show='error.value'>
                     {{error.message}}
@@ -138,9 +138,9 @@
             </form>
         </div>
         <div ng-switch-when='home' class='home'>
-            <div class='row sorting' ng-class="(expensesSorting.reverse === true) ? ' rev' : ''" ng-show=!showAddExpense>
+            <div class='row sorting fixed' ng-class="(expensesSorting.reverse === true) ? ' rev' : ''" ng-show=!showAddExpense>
                 <div class='row'>
-                    <p class='small-2 columns mb5'>
+                    <p class='small-4 columns mb5'>
                         Sort:
                     </p>
                     <p class='small-6  end columns mb5'>
@@ -151,15 +151,14 @@
                         Total Spent:
                         </p>
                         -->
-
                 </div>
                 <div class='row'>
-                    <div class='small-1 columns' ng-class="(expensesSorting.sort === 'date') ? ' active' : ''">
-                        <a class=' ' href='#' ng-click="expensesSorting.sort = 'date'; expensesSorting.reverse=!expensesSorting.reverse"> <i class='icon-calendar'></i> 
+                    <div class='small-2 columns' ng-class="(expensesSorting.sort === 'date') ? ' active' : ''">
+                        <a class='filter ' href='#' ng-click="expensesSorting.sort = 'date'; expensesSorting.reverse=!expensesSorting.reverse"> <i class='icon-calendar'></i> 
                         </a>
                     </div>
-                    <div class='small-1  columns' ng-class="(expensesSorting.sort === 'amount') ? ' active' : ''">
-                        <a class='' href='#' ng-click="expensesSorting.sort = 'amount'; expensesSorting.reverse=!expensesSorting.reverse"> <i class='icon-s'></i> 
+                    <div class='small-2 columns' ng-class="(expensesSorting.sort === 'amount') ? ' active' : ''">
+                        <a class='filter' href='#' ng-click="expensesSorting.sort = 'amount'; expensesSorting.reverse=!expensesSorting.reverse"> <i class='icon-s'></i> 
                         </a>
                     </div>
                     <div class='small-6 columns filtercontainer'>
@@ -167,7 +166,7 @@
                     </div>
                     <div class='small-2 end columns'>
                         <p class='totalSpent'>
-                            {{ filteredTotal | currency}}
+                           
                         </p>
                     </div>
 
@@ -186,7 +185,7 @@
             </div>
 
             <div class='row' ng-show='expenses.length > 0 && !showAddExpense'>
-                <ul class='small-12 small-centered columns'>
+                <ul class='small-12 small-centered column list'>
                     <li class='expense clearfix' ng-repeat="entry in filteredExpenses = (expenses | filter:filterText) | orderBy:expensesSorting.sort:expensesSorting.reverse">
                         <div class='clearfix'>
                             <p class='expense menu edit right'>
