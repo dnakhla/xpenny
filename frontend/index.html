@@ -16,44 +16,46 @@
     <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet' type='text/css'>
     <link rel='stylesheet' href='css/fontello.css'>
     <link rel='stylesheet' href='css/animation.css'>
-    <link rel='stylesheet' href='css/main.min.css' type='text/css' />
+    <link rel='stylesheet' href='css/main.css' type='text/css' />
     <script src='//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js'></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
-    <script src='js/app.min.js'></script>
+    <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js'></script>
 </head>
 
 <body ng-app='xpenny'>
     <!--[if lt IE 8]>
             <p class='browsehappy'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
     <div class='loading' ng-show='loading'>
         <div class='small-10 columns small-centered end text-center'>
             <p class='headertitle'>xpenny</p>
             <i class='icon-spin2 animate-spin'></i>
         </div>
     </div>
-    <div id='container' ng-switch="activecard" ng-hide='loading' ng-controller="ExpenseCtrl" ng-cloak>
+    <div id='container' ng-switch='activecard' ng-hide='loading' ng-controller='ExpenseCtrl' ng-cloak>
         <div class='row collapse'>
             <div class='small-6 columns'>
                 <h1 class='headertitle'><i class='icon-dollar'></i>xpenny</h1>
             </div>
 
-            <div class='small-6 columns text-right' ng-switch="user.loggedin">
-                <a href='#' ng-click="activatecard('signup')" ng-switch-when="false" class='button tiny'><i class='icon-login'></i>Signup</a>
-                <a href='#' ng-switch-when="true" ng-click="logoutUser()" class='button tiny'><i class='icon-logout'></i>Logout</a>
-                <a href='#' ng-click="activatecard('login')" ng-switch-when="false" class='button tiny'><i class='icon-logout'></i>Login</a>
+            <div class='small-6 columns text-right'>
+                <a href='#' ng-click='activatecard("signup")' ng-hide=user.access class='button tiny'><i class='icon-login'></i>Signup</a>
+                <a href='#' ng-show=user.access ng-click='logoutUser()' class='button tiny'><i class='icon-logout'></i>Logout {{user.name}}</a>
+                <a href='#' ng-click='activatecard("login")' ng-hide=user.access class='button tiny'><i class='icon-logout'></i>Login</a>
             </div>
         </div>
-
-        <div class='row addexpensemainbutton hide'>
-            <div class='small-5 small-centered columns'>
-                <a href='#' class='button expand round' data-reveal-id="addExpense">
-                    <i class='icon-plus-circled'></i>Add Expense</a>
+        <div class='row'>
+            <div class='small-12 columns'>
+                <div data-alert class=' alert-box alert ' ng-show='error.value'>
+                    {{error.message}}
+                    <a href='# ' class='close' ng-click='resetError();'>&times;</a>
+                </div>
+            </div>
+            <div data-alert class="alert-box success radius" ng-show='success.value'>
+                {{success.message}}
+                <a href="#" class="close" ng-click='resetSuccess();'>&times;</a>
             </div>
         </div>
-
-        <div ng-switch-when="signup" class='signup'>
+        <div ng-switch-when='signup' class='signup'>
             <div class='row'>
                 <div class='small-11 columns panel callout small-centered'>
                     <p class='aboutapp'>This is a little, mobile-first expense tracker I built on Laravel (PHP), Angular (JS), and Foundation (CSS).</p>
@@ -63,23 +65,15 @@
             <div class='row'>
                 <h1 class='small-12 columns'>Signup</h1> 
             </div>
-            <div class='row' ng-show="error.value">
-                <div class='small-12 columns'>
-                    <div data-alert class=" alert-box alert ">
-                        {{error.message}}
-                        <a href="# " class="close" ng-click='resetError();'>&times;</a>
-                    </div>
-                </div>
-            </div>
             <div class='row'>
                 <div class='small-12 columns'>
-                    <a class='little' href='#' ng-click="activatecard('login')"> I already have an account!</a>
+                    <a class='little' href='#' ng-click='activatecard("login")'> I already have an account!</a>
                 </div>
             </div>
-            <form ng-submit="signupUser()">
+            <form ng-submit='signupUser()'>
                 <div class='row'>
-                    <div class='small-12 columns'>{{user}}
-                        <input type='text' name='name' placeholder='First and Last Name' ng-model=user.name required />
+                    <div class='small-12 columns'>
+                        <input type='text' placeholder='First and Last Name' ng-model=user.name required/>
                     </div>
                 </div>
 
@@ -97,7 +91,7 @@
 
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <button type="submit" class='small-12 columns'>Signup</button>
+                        <button type='submit' class='small-12 columns'>Signup</button>
                     </div>
                 </div>
             </form>
@@ -110,10 +104,10 @@
             </div>
             <div class='row'>
                 <div class='small-12 columns'>
-                    <a class='little' href='#' ng-click="activatecard('signup')">I don't have an account yet!</a>
+                    <a class='little' href='#' ng-click='activatecard("signup")'>I don't have an account yet!</a>
                 </div>
             </div>
-            <form ng-submit="loginUser()">
+            <form ng-submit='loginUser()'>
 
                 <div class='row'>
                     <div class='small-12 columns'>
@@ -128,58 +122,12 @@
                 </div>
                 <div class='row'>
                     <div class='small-12 columns'>
-                        <button type="submit" class='button small-12 columns'>Login</button>
+                        <button type='submit' class='button small-12 columns'>Login</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class='addexpense editexpense reveal-modal' id="addExpense " data-reveal>
-            <div class='row'>
-                <div class='small-11 columns'>
-                    <h2>Expense Details</h2>
-                </div>
-                <div class='small-1 columns'>
-                    <!--                i like to keep this tucked away, ill prob never use it-->
-                    <a class='' href='#'><i class='icon-trash'></i></a>
-                </div>
-            </div>
-
-            <form>
-                <div class='row'>
-                    <div class='small-2 columns prefixcontainer'>
-                        <span class='prefix'>$</span>
-                    </div>
-                    <div class='small-10 columns inputcontainer'>
-                        <input type='number' step="0.01 " placeholder='0.00' />
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class='small-12 columns'>
-                        <input type='text' placeholder='Describe...' />
-                    </div>
-                </div>
-
-                <div class='row'>
-                    <div class='small-12 columns'>
-                        <input type='text' placeholder='Comment...' />
-                    </div>
-                </div>
-
-                <div class='row'>
-                    <div class='small-12 columns'>
-                        <input type='datetime-local' />
-                    </div>
-                </div>
-
-                <div class='row'>
-                    <div class='small-12 columns'>
-                        <button class='small-6 columns'>Save</button>
-                        <button class='small-6 columns'>Cancel</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div ng-switch-when="home" class='home'>
+        <div ng-switch-when='home' class='home'>
             <div class='row sorting'>
                 <div class='small-10 medium-3 columns '>
                     <p class=''>Sort:
@@ -195,47 +143,97 @@
                     </p>
                 </div>
             </div>
-
             <div class='row'>
-                <div class='small-12 columns'>
-                    <p class=''>Recent Expenses:</p>
-                </div>
+                <p class='recent small-12 columns'>Recent Expenses:</p>
             </div>
-            <div class='row'>
+
+            <div class='row' ng-show='expenses.length < 1 || expenses === false'>
                 <p class='small-4 small-centered columns text-center'>you haven't added anything yet!</p>
             </div>
 
-            <div class='row'>
+            <div class='row' ng-show='expenses.length > 0 && !showAddExpense'>
                 <ul class='small-12 small-centered columns'>
-                    <li class='expense clearfix'>
+                    <li class='expense clearfix' ng-repeat="entry in expenses | orderBy:'date':true">
                         <div class='clearfix'>
                             <p class='expense menu edit right'>
-                                <a href='#'>
+                                <a href='#' ng-click=editExpense(entry)>
                                     <i class='icon-edit'></i>
                                 </a>
                             </p>
                         </div>
                         <div class='row'>
-                            <p class='date small-12 columns'>June 21, 2013
+                            <p class='date small-8 columns'>{{entry.date + ' UTC' | timeago}}
                             </p>
                         </div>
 
                         <div class='row'>
-                            <p class='amount small-4 columns'>$100,000</p>
-                            <p class='description small-6 end columns'>I bought a house.I bought a house.I bought a house.
+                            <p class='amount small-4 columns'>{{entry.amount | currency }}</p>
+                            <p class='description small-6 end columns'>{{entry.description}}
                             </p>
                         </div>
                         <div class='row'>
-                            <p class='comment small-12 columns'>comment</p>
+                            <p class='comment small-12 columns'>{{entry.comment}}</p>
                         </div>
                     </li>
                 </ul>
             </div>
+            <div class='addexpense editexpense panel' ng-show='showAddExpense' id='addExpense'>
+                <div class='row'>
+                    <div class='small-11 columns'>
+                        <h2>Expense Details</h2>
+                    </div>
+                    <div class='small-1 columns'>
+                        <!--                i like to keep this tucked away, ill prob never use it-->
+                        <a ng-show='activeExpense.id' class='' href='#'><i class='icon-trash'></i></a>
+                    </div>
+                </div>
+
+                {{activeExpense}}
+                <form name='addExpenseForm' ng-submit='saveExpense()'>
+                    <div class='row'>
+                        <div class='small-2 columns prefixcontainer'>
+                            <span class='prefix'>$</span>
+                        </div>
+                        <div class='small-10 columns inputcontainer'>
+                            <input type='number' ng-model='activeExpense.amount' step='0.01' placeholder='0.00' required/>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='small-12 columns'>
+                            <input type='text' ng-model='activeExpense.description' placeholder='Describe...' />
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='small-12 columns'>
+                            <input type='text' ng-model='activeExpense.comment' placeholder='Comment...' />
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='small-12 columns'>
+                            <input name='datetimeval' type='datetime-local' ng-model='activeExpense.date' required />
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='small-12 columns'>
+                            <button class='small-6 columns' type='submit'>Save</button>
+                            <button class='small-6 columns' ng-click=hideAddExpense()>Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class='row addexpensemainbutton'>
+                <div class='small-9 small-centered columns'>
+                    <a href='#' class='button expand' ng-click='showAdd()'>
+                        <i class='icon-plus-circled'></i>Add Expense</a>
+                </div>
+            </div>
         </div>
     </div>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.7.1/angular-moment.min.js "></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-cookies.min.js "></script>
-    <script src='//code.angularjs.org/1.2.18/angular-resource.min.js'></script>
+    <script src="//rawgithub.com/timrwood/moment/2.1.0/min/moment.min.js"></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-cookies.min.js '></script>
+    <script src='js/app.js'></script>
 </body>
 
 </html>

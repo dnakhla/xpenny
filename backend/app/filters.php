@@ -30,12 +30,6 @@ App::after(function($request, $response) {
  |
  */
 Route::filter('custom.loginCheck', function() {
-//    if (!Auth::guest()) {
-//        return Response::json(array(
-//            'error' => false,
-//            'message' => Auth::user()->name . ', you\'re already logged in!'
-//        ), 200);
-//    }
     if (!Input::has(array(
         'email',
         'password'
@@ -70,7 +64,7 @@ Route::filter('custom.signupCheck', function() {
 
 });
 Route::filter('custom.api', function() {
-    return Auth::basic();
+    return Auth::onceBasic();
     if (Auth::guest()) {
         return Response::json(array(
             'error' => true,

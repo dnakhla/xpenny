@@ -8,7 +8,6 @@ class UserController extends \BaseController {
         $user->email = Request::get('email');
         $user->password = Hash::make(Request::get('password'));
         $user->save();
-        Auth::loginUsingId($user->id);
         return Response::json(array(
             'error' => false,
             'message' => 'user created and logged in'
@@ -20,10 +19,20 @@ class UserController extends \BaseController {
             'email' => Request::get('email'),
             'password' => Request::get('password'),
         );
-        if (Auth::attempt($credentials, true)) {
-            return Response::json('Success!', 200);
+        if (Auth::once($credentials)) {
+            $name= array(
+              'name' => Auth::user()->name,
+               'email'=>Auth::user()->email
+            );
+          return Response::json(array(
+            'error' => false,
+            'message' => $name
+        ), 200);
         } else {
-            return Response::json('Incorrect Login or no Login Passed', 403);
+         return Response::json(array(
+            'error' => true,
+            'message' => 'Incorrect Login!'
+        ), 403);
         }
     }
 
