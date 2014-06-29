@@ -33,7 +33,7 @@
             <i class='icon-spin2 animate-spin'></i>
         </div>
     </div>
-    <div id='container' ng-switch='activecard' ng-hide='loading' ng-controller='ExpenseCtrl' ng-cloak>
+    <div id='container' ng-show='!loading' ng-switch='activecard' ng-hide='loading' ng-controller='ExpenseCtrl' ng-cloak>
         <div class='row headbar fixed'>
             <div class='small-4 columns'>
                 <h1 class='headertitle'><i class='icon-dollar'></i>xpenny</h1>
