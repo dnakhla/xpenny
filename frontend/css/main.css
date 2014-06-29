@@ -1,14 +1,13 @@
-h1,
-h2 {
+h1, h2 {
     font-family: 'Love Ya Like A Sister', serif;
     margin: 0;
 }
 .headertitle {
     font-family: 'Love Ya Like A Sister', serif;
-    font-size: 1.5rem;
+    font-size: 1.5 rem;
 }
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.5 rem;
 }
 .container {
     position: relative;
@@ -20,16 +19,14 @@ p.aboutapp {
     font-size: .7rem;
     color: #aaa;
 }
-.signup form,
-.login form {
+.signup form, .login form {
     margin-top: 15px;
 }
 .addexpensemainbutton {
     padding: 0;
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
     background: #fff;
+    bottom: 10px;
+    position: absolute;
 }
 p.aboutapp {
     padding: 15px 0;
@@ -48,7 +45,9 @@ p.aboutapp {
     padding: 0;
     margin-left: 0px;
 }
-.filterinput {} .sorting a {
+.filterinput {
+}
+.sorting a {
     margin-left: 10;
 }
 .expense {
@@ -71,12 +70,11 @@ li.expense p {
 .inputcontainer {
     padding-left: 0;
 }
-li.expense .menu.edit,
-li.expense .menu.delete {
+li.expense .menu.edit, li.expense .menu.delete {
     height: 0;
 }
 .sorting {
-    padding-left: 1.9rem;
+    padding-left: 1.9 rem;
     font-size: .8rem;
     border-bottom: 2px solid #fff;
     border-top: 2px solid #fff;
@@ -84,7 +82,7 @@ li.expense .menu.delete {
 .sorting .small-1 {
     text-align: center;
     font-size: 1rem;
-    padding: .5rem 0rem;
+    padding:  .5rem 0rem;
 }
 .sorting .active {
     border-bottom: 2px solid #3a945b;
@@ -98,10 +96,9 @@ li.expense .menu.delete {
     color: #000;
     font-size: .6rem;
 }
-.amount,
-p.totalSpent {
+.amount, p.totalSpent {
     color: #A7414F;
-    font-size: 1.8rem;
+    font-size: 1.8 rem;
     position: relative;
     opacity: .99;
 }
@@ -112,7 +109,7 @@ p.totalSpent {
 li.expense p.comment {
     color: #A4846A;
     font-size: .7rem;
-    margin-top: -.5rem;
+    margin-top: -.5 rem;
 }
 input[type=search] {
     text-align: left;
@@ -131,10 +128,10 @@ input[type=search] {
     font-size: 12rem;
 }
 .loading .headertitle {
-    font-size: 2.2rem;
+    font-size: 2.2 rem;
     position: relative;
     color: #006400;
-    top: 8.9rem;
+    top: 8.9 rem;
     left: .2rem;
 }
 p.mb5 {
@@ -149,23 +146,23 @@ p.mt10 {
     color: #006400;
     opacity: 0.8;
     /*
-    -webkit-animation: rightMove 1s ease-in;
-    -webkit-animation-fill-mode: forwards;
-    -webkit-animation-delay: 2s;
-*/
+     -webkit-animation: rightMove 1s ease-in;
+     -webkit-animation-fill-mode: forwards;
+     -webkit-animation-delay: 2s;
+     */
 }
 p.tagline {
     margin-top: -5px;
     color: #A4846A;
 }
 @-webkit-keyframes rightMove {
-    0% {
-        margin-right: 0;
-    }
-    50% {
-        margin-right: -20px;
-    }
-    100% {
-        margin-right: -20px;
-    }
+0% {
+margin-right: 0;
+}
+50% {
+margin-right: -20px;
+}
+100% {
+margin-right: -20px;
+}
 }
