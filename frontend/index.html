@@ -32,14 +32,11 @@
         </div>
     </div>
     <div id='container' ng-switch='activecard' ng-hide='loading' ng-controller='ExpenseCtrl' ng-cloak>
-        <div class='row collapse'>
-            <div class='small-2 columns'>
+        <div class='row'>
+            <div class='small-6 columns'>
                 <h1 class='headertitle'><i class='icon-dollar'></i>xpenny</h1>
+                <p class='tagline'>a simple expense manager</p>
             </div>
-            <div class='small-3 columns '>
-                <p class='tagline text-left'>- a simple expense manager</p>
-            </div>
-
             <div class='small-4 columns text-right'>
                 <a href='#' ng-click='activatecard("signup")' ng-hide=user.access class='button tiny'><i class='icon-login'></i>Signup</a>
                 <a href='#' ng-show=user.access ng-click='logoutUser()' class='button tiny'><i class='icon-logout'></i>Logout {{user.name}}</a>
@@ -131,14 +128,19 @@
             </form>
         </div>
         <div ng-switch-when='home' class='home'>
-            <div class='row sorting' ng-class="(expensesSorting.reverse === true) ? ' rev' : ''">
-                <div class='row text-left'>
+            <div class='row sorting' ng-class="(expensesSorting.reverse === true) ? ' rev' : ''" ng-show=!showAddExpense>
+                <div class='row'>
                     <p class='small-2 columns mb5'>
-                        Sort
+                        Sort:
                     </p>
-                    <p class='small-8 end columns mb5'>
-                        Filter
+                    <p class='small-6  end columns mb5'>
+                        Filter:
                     </p>
+                    <!--
+                   <p class='small-2 end columns mb5'>
+    Total Spent:
+</p>
+-->
 
                 </div>
                 <div class='row'>
@@ -151,8 +153,11 @@
                             <i class='icon-s'></i>
                         </a>
                     </div>
-                    <div class='small-8  end columns'>
-                        <input ng-change=totalCalc() class='filterinput' type='text' ng-model="filterText" placeholder='type to filter by any field'>
+                    <div class='small-6 columns filtercontainer'>
+                        <input class='filterinput' ng-change=getTotal(filteredExpenses) class='filterinput' type='text' ng-model="filterText" placeholder='type to filter by amount, comment, or description' />
+                    </div>
+                    <div class='small-2 end columns'>
+                        <p class='totalSpent'>{{ filteredTotal | currency}}</p>
                     </div>
 
                 </div>
@@ -167,7 +172,7 @@
 
             <div class='row' ng-show='expenses.length > 0 && !showAddExpense'>
                 <ul class='small-12 small-centered columns'>
-                    <li class='expense clearfix' ng-repeat="entry in expenses | filter:filterText | orderBy:expensesSorting.sort:expensesSorting.reverse">
+                    <li class='expense clearfix' ng-repeat="entry in filteredExpenses = (expenses | filter:filterText) | orderBy:expensesSorting.sort:expensesSorting.reverse">
                         <div class='clearfix'>
                             <p class='expense menu edit right'>
                                 <a href='#' ng-click=editExpense(entry)>
@@ -235,17 +240,20 @@
                     </div>
                 </form>
             </div>
-            <div class='row addexpensemainbutton'>
-                <div class='small-9 small-centered columns'>
-                    <a href='#' class='button expand' ng-click='showAdd()'>
-                        <i class='icon-plus-circled'></i>Add Expense</a>
+        </div>
+        <div class='row addexpensemainbutton' ng-show='(!showAddExpense && activecard=="home") '>
+            <div class='row'>
+                <div class='small-9 small-centered columns '>
+                    <a href='# ' class='button expand ' ng-click='showAdd() '>
+                        <i class='icon-plus-circled '></i>Add Expense</a>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="//rawgithub.com/timrwood/moment/2.1.0/min/moment.min.js"></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-cookies.min.js '></script>
-    <script src='js/app.js'></script>
+    <script src='js/app.js '></script>
 </body>
 
 </html>

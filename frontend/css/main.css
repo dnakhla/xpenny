@@ -5,10 +5,13 @@ h2 {
 }
 .headertitle {
     font-family: 'Love Ya Like A Sister', serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 h2 {
     font-size: 1.5rem;
+}
+.container {
+    position: relative;
 }
 p {
     font-size: .8rem;
@@ -21,15 +24,31 @@ p.aboutapp {
 .login form {
     margin-top: 15px;
 }
+.addexpensemainbutton {
+    padding: 0;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: #fff;
+}
 p.aboutapp {
     padding: 15px 0;
     font-size: .9rem;
 }
-sorting p {
-    font-size: .9rem;
-    vertical-align: middle;
+.sorting input {
+    font-size: .7rem;
 }
-sorting a {
+.sorting p {
+    font-size: .7rem;
+    vertical-align: middle;
+    opacity: .70;
+    padding: 0;
+}
+.filtercontainer {
+    padding: 0;
+    margin-left: 0px;
+}
+.filterinput {} .sorting a {
     margin-left: 10;
 }
 .expense {
@@ -41,6 +60,7 @@ li.expense {
 }
 li.expense:last-child {
     border-bottom: 1px solid #ddd;
+    margin-bottom: 5rem;
 }
 li.expense p {
     margin: 0;
@@ -58,6 +78,8 @@ li.expense .menu.delete {
 .sorting {
     padding-left: 1.9rem;
     font-size: .8rem;
+    border-bottom: 2px solid #fff;
+    border-top: 2px solid #fff;
 }
 .sorting .small-1 {
     text-align: center;
@@ -76,7 +98,8 @@ li.expense .menu.delete {
     color: #000;
     font-size: .6rem;
 }
-.amount {
+.amount,
+p.totalSpent {
     color: #A7414F;
     font-size: 1.8rem;
     position: relative;
@@ -125,13 +148,15 @@ p.mt10 {
 .headertitle .icon-dollar:before {
     color: #006400;
     opacity: 0.8;
+    /*
     -webkit-animation: rightMove 1s ease-in;
     -webkit-animation-fill-mode: forwards;
     -webkit-animation-delay: 2s;
+*/
 }
 p.tagline {
+    margin-top: -5px;
     color: #A4846A;
-    margin-left: -40px;
 }
 @-webkit-keyframes rightMove {
     0% {
