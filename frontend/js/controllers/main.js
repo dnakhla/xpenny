@@ -1,19 +1,4 @@
 var expenseController = function ($scope, $cookieStore, $http, $filter, Expense, User) {
-    $scope.loading = false;
-    $scope.error = {
-        value: false,
-        message: ''
-    };
-    $scope.success = {
-        value: false,
-        message: ''
-    };
-    $scope.showAddExpense = false;
-    $scope.expenses = false;
-    $scope.expensesSorting = {
-        sort: 'date',
-        reverse: true
-    };
     $scope.renewActiveExpense = function () {
         $scope.activeExpense = {
             amount: null,
@@ -25,8 +10,6 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
     $scope.getTotal = function () {
         //@TODO add this
     };
-    $scope.user = User.getUser();
-    $scope.renewActiveExpense();
     $scope.updateExpenses = function () {
         $scope.loading = true;
         Expense.get().success(function (data) {
@@ -38,11 +21,6 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
             $scope.loading = false;
         });
     };
-    if ($scope.user.access !== false) {
-        $http.defaults.headers.common.Authorization = 'Basic ' + $scope.user.access;
-        $scope.updateExpenses();
-    }
-    $scope.activecard = ($scope.user.access && $cookieStore.get('activecard')) || ($cookieStore.get('activecard') == 'login' ? 'login' : 'signup');
     $scope.resetError = function () {
         $scope.error = {
             value: false,
@@ -189,11 +167,28 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
                 $scope.loading = false;
             });
     };
-};
-
-var timeagoFilter = function () {
-    return function (date) {
-        date = new Date(date + ' UTC');
-        return moment(date).fromNow();
+    //calls
+    $scope.loading = false;
+    $scope.error = {
+        value: false,
+        message: ''
     };
+    $scope.success = {
+        value: false,
+        message: ''
+    };
+    $scope.showAddExpense = false;
+    $scope.expenses = false;
+    $scope.expensesSorting = {
+        sort: 'date',
+        reverse: true
+    };
+    $scope.user = User.getUser();
+    $scope.renewActiveExpense();
+    if ($scope.user.access !== false) {
+        $http.defaults.headers.common.Authorization = 'Basic ' + $scope.user.access;
+        $scope.updateExpenses();
+    }
+    $scope.activecard = ($scope.user.access && $cookieStore.get('activecard')) || ($cookieStore.get('activecard') == 'login' ? 'login' : 'signup');
+
 };
