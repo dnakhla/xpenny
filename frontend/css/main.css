@@ -119,7 +119,7 @@ li.expense .menu.delete {
 .amount,
 p.totalSpent {
     color: #A7414F;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     position: relative;
     opacity: .99;
 }
@@ -185,9 +185,6 @@ p.mt10 {
 p.tagline {
     font-size: .5rem;
     color: #A4846A;
-}
-p.smallNumber {
-    font-size: 1rem;
 }
 @-webkit-keyframes rightMove {
     0% {
