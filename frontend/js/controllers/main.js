@@ -73,7 +73,7 @@ var expenseController = function ($scope, $cookieStore, $http, $filter, Expense,
                     message: data.message
                 };
             }).finally(function () {
-
+                $scope.loading = false;
             });
     };
     $scope.deleteExpense = function () {
