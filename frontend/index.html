@@ -50,9 +50,9 @@
                 </p>
             </div>
             <div class='small-8 columns text-right'>
-                <a href='#' ng-click='activatecard("signup")' ng-hide=user.access class='button tiny'><i class='icon-login'></i>Signup</a>
+                <a href='#' ng-click='activatecard("signup")' ng-hide='(user.access || activecard=="signup")' class='button tiny'><i class='icon-login'></i>Signup</a>
                 <a href='#' ng-show=user.access ng-click='logoutUser()' class='button tiny'><i class='icon-logout'></i>Logout {{user.name}}</a>
-                <a href='#' ng-click='activatecard("login")' ng-hide=user.access class='button tiny'><i class='icon-logout'></i>Login</a>
+                <a href='#' ng-click='activatecard("login")' ng-hide=(user.access) class='button tiny'><i class='icon-logout'></i>Login</a>
             </div>
         </div>
         <div ng-hide='loading'>
@@ -267,7 +267,7 @@
                             <button class='small-6 columns' type='submit'>
                                 Save
                             </button>
-                            <a class='small-6 button columns' ng-click='hideAddExpense()'>
+                            <a class='small-6 button disabled columns' ng-click='hideAddExpense()'>
                                 Cancel
                             </a>
                         </div>
